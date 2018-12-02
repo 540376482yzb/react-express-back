@@ -1,0 +1,59 @@
+#!/bin/bash
+echo "Yo fam, want name or nah?"
+read appName
+express --no-view $appName
+cd $appName
+git init
+
+# install default dependencies
+npm install nodemon@1.18 chai@4.1 chai-http@4.0 dotenv@6.0 forever@0.15 mocha@5.2 request@2.87 md5@2.2 http-errors@1.7 moment@2.22 body-parser@1.18 --save
+npm audit fix
+
+# create default dir and files
+mkdir tests
+mkdir helpers
+mkdir actions
+mkdir middlewares
+touch README.md .env
+touch CHANGELOG.md
+
+# write client name to env file
+echo "Enter your front project name: "
+read clientName
+echo "CLIENT_NAME=$clientName" >> .env
+
+# add a title to README
+echo "# ${appName}" >> README.md
+
+# add project code to package json
+echo "What is your project code: "
+read projectCode
+touch package.json.tmp
+brew install jq
+jq --arg key $appName  '.name=$key' package.json > package.json.tmp
+jq --arg key $projectCode  '.project_code=$key' package.json > package.json.tmp
+rm package.json
+mv package.json.tmp package.json
+
+#ignore front end project dir
+echo "$clientName" >> .gitignore
+# replace app.js
+rm app.js
+curl -o app.js https://raw.githubusercontent.com/540376482yzb/react-express-back/master/app.js
+
+# clean out the default route implementation
+rm -rf routes
+mkdir routes
+mkdir routes/v0
+mkdir routes/v1
+cd routes
+curl -o api.route.js https://raw.githubusercontent.com/540376482yzb/react-express-back/master/routes/api.route.js
+cd v0/
+curl -o index.route.js https://raw.githubusercontent.com/540376482yzb/react-express-back/master/routes/v0/index.route.js
+cd ..
+cd v1/
+curl -o index.route.js https://raw.githubusercontent.com/540376482yzb/react-express-back/master/routes/v1/index.route.js
+cd ..
+cd ..
+npm install
+exit 0
