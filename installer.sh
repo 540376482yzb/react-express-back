@@ -10,7 +10,7 @@ else
 fi
 
 # download script to the bin directory under the home diretory
-curl -o ~/bin/odgenerator https://raw.githubusercontent.com/OD-International/express-boilerplate/master/odgenerator
+curl -o ~/bin/odgenerator https://raw.githubusercontent.com/540376482yzb/react-express-back/master/odgenerator
 
 # adds script to $HOME path
 echo "export PATH="$HOME/bin:$PATH"" >> ~/.bash_profile
