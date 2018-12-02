@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config();
-
+const CLIENT_NAME = process.env.CLIENT_NAME
 const express = require('express');
 const createError = require('http-errors');
 const path = require('path');
@@ -11,18 +11,21 @@ const apiRoute = require('./routes/api.route');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // TODO: custom routes
-app.use(express.static(path.join(__dirname, 'front-end/build')));
+app.use(express.static(path.join(__dirname, `${CLIENT_NAME}/build`)));
 app.use('/api', apiRoute);
 
-
 app.get('*', (req, res, next) => {
-    const file_path = `${__dirname}/front-end/build/index.html`;
+    if (!CLIENT_NAME) {
+        return next('CLIENT NAME IS NOT SPECIFIED')
+    }
+    const file_path = `${__dirname}/${CLIENT_NAME}/build/index.html`;
     res.sendFile(path.join(file_path));
 });
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => next(createError(404)));
 
