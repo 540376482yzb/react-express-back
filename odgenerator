@@ -22,6 +22,9 @@ echo "Enter your front project name: "
 read clientName
 echo "CLIENT_NAME=$clientName" >> .env
 
+# create front end project
+npx create-react-app $clientName
+
 # add a title to README
 echo "# ${appName}" >> README.md
 
