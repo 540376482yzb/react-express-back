@@ -22,12 +22,6 @@ echo "Enter your front project name: "
 read clientName
 echo "CLIENT_NAME=$clientName" >> .env
 
-# create front end project
-npx create-react-app $clientName
-
-# add a title to README
-echo "# ${appName}" >> README.md
-
 # add project code to package json
 echo "What is your project code: "
 read projectCode
@@ -38,11 +32,19 @@ jq --arg key $projectCode  '.project_code=$key' package.json > package.json.tmp
 rm package.json
 mv package.json.tmp package.json
 
-#ignore front end project dir
-echo "$clientName" >> .gitignore
+
 # replace app.js
 rm app.js
 curl -o app.js https://raw.githubusercontent.com/540376482yzb/react-express-back/master/app.js
+
+# download gitignore
+curl -o .gitignore https://raw.githubusercontent.com/540376482yzb/react-express-back/master/gitignore
+
+#ignore front end project dir
+echo "$clientName" >> .gitignore
+
+# add a title to README
+echo "# ${appName}" >> README.md
 
 # clean out the default route implementation
 rm -rf routes
@@ -59,4 +61,10 @@ curl -o index.route.js https://raw.githubusercontent.com/540376482yzb/react-expr
 cd ..
 cd ..
 npm install
+
+# create front end project
+npx create-react-app $clientName
+
+
+
 exit 0
