@@ -25,6 +25,8 @@ echo "CLIENT_NAME=$clientName" >> .env
 # add project code to package json
 echo "What is your project code: "
 read projectCode
+
+rm package-lock.json
 touch package.json.tmp
 touch package.json.tmp2
 brew install jq
