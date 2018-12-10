@@ -1,10 +1,11 @@
 {
-  "name": "fullstack-frame",
-  "version": "2.0.1",
+  "name": "your_project_name",
+  "version": "1.0.0",
   "private": true,
-  "project_code": "20000",
+  "project_code": "your_project_code",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
