@@ -30,9 +30,9 @@ rm package-lock.json
 touch package.json.tmp
 touch package.json.tmp2
 brew install jq
-jq --arg key $appName  '.name=$key' package.json > package.json.tmp
-jq --arg key "nodemon bin/www" '.scripts=(.scripts + {"dev":$key})' package.json > package.json.tmp
-jq --arg key $projectCode  '.project_code=$key' package.json.tmp > package.json.tmp2
+echo jq --arg key $appName  '.name=$key' package.json > package.json.tmp
+# jq --arg key "nodemon bin/www" '.scripts=(.scripts + {"dev":$key})' package.json > package.json.tmp
+# jq --arg key $projectCode  '.project_code=$key' package.json.tmp > package.json.tmp2
 rm package.json
 rm package.json.tmp
 mv package.json.tmp2 package.json
@@ -70,6 +70,6 @@ cd ..
 npm install
 
 # create front end project
-npx create-react-app $clientName
+# npx create-react-app $clientName
 
 exit 0
