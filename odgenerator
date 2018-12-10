@@ -5,10 +5,6 @@ express --no-view $appName
 cd $appName
 git init
 
-# install default dependencies
-npm install nodemon@1.18 chai@4.1 chai-http@4.0 dotenv@6.0 forever@0.15 mocha@5.2 request@2.87 md5@2.2 http-errors@1.7 moment@2.22 body-parser@1.18 od-utility --save
-npm audit fix
-
 # create default dir and files
 mkdir tests
 mkdir helpers
@@ -67,9 +63,13 @@ cd v1/
 curl -o index.route.js https://raw.githubusercontent.com/540376482yzb/react-express-back/master/routes/v1/index.route.js
 cd ..
 cd ..
+
+# install default dependencies
+npm install nodemon dotenv request md5 moment body-parse od-utility --save
 npm install
+npm audit fix
 
 # create front end project
-# npx create-react-app $clientName
+npx create-react-app $clientName
 
 exit 0
