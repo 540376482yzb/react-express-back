@@ -1,12 +1,12 @@
 #!/bin/bash
-echo "Yo fam, want name or nah?"
+echo "What would you name your project?"
 read appName
 express --no-view $appName
 cd $appName
 git init
 
 # install default dependencies
-npm install nodemon@1.18 chai@4.1 chai-http@4.0 dotenv@6.0 forever@0.15 mocha@5.2 request@2.87 md5@2.2 http-errors@1.7 moment@2.22 body-parser@1.18 --save
+npm install nodemon@1.18 chai@4.1 chai-http@4.0 dotenv@6.0 forever@0.15 mocha@5.2 request@2.87 md5@2.2 http-errors@1.7 moment@2.22 body-parser@1.18 od-utility --save
 npm audit fix
 
 # create default dir and files
@@ -26,11 +26,14 @@ echo "CLIENT_NAME=$clientName" >> .env
 echo "What is your project code: "
 read projectCode
 touch package.json.tmp
+touch package.json.tmp2
 brew install jq
 jq --arg key $appName  '.name=$key' package.json > package.json.tmp
-jq --arg key $projectCode  '.project_code=$key' package.json > package.json.tmp
+jq --arg key "nodemon bin/www" '.scripts=(.scripts + {"dev":$key})' package.json > package.json.tmp
+jq --arg key $projectCode  '.project_code=$key' package.json.tmp > package.json.tmp2
 rm package.json
-mv package.json.tmp package.json
+rm package.json.tmp
+mv package.json.tmp2 package.json
 
 
 # replace app.js
@@ -41,7 +44,9 @@ curl -o app.js https://raw.githubusercontent.com/540376482yzb/react-express-back
 curl -o .gitignore https://raw.githubusercontent.com/540376482yzb/react-express-back/master/gitignore
 
 #ignore front end project dir
-echo "$clientName" >> .gitignore
+echo  "
+# ingore client name 
+$clientName" >> .gitignore
 
 # add a title to README
 echo "# ${appName}" >> README.md
@@ -64,7 +69,5 @@ npm install
 
 # create front end project
 npx create-react-app $clientName
-
-
 
 exit 0
