@@ -7,9 +7,13 @@ git init
 
 # create default dir and files
 mkdir tests
+touch tests/index.js
 mkdir helpers
+touch helpers/index.js
 mkdir actions
+touch actions/index.js
 mkdir middlewares
+touch middlewares/index.js
 touch README.md .env
 touch CHANGELOG.md
 
