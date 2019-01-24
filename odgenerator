@@ -22,10 +22,6 @@ echo "Enter your front project name: "
 read clientName
 echo "CLIENT_NAME=$clientName" >> .env
 
-# add project code to package json
-echo "What is your project code: "
-read projectCode
-
 # rm package-lock.json
 # touch package.json.tmp
 # touch package.json.tmp2
@@ -70,10 +66,5 @@ cd ..
 
 # install default dependencies
 npm install nodemon dotenv request md5 moment body-parse od-utility --save
-npm install
-npm audit fix
-
-# create front end project
-npx create-react-app $clientName
 
 exit 0
